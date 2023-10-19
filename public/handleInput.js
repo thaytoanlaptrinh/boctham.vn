@@ -114,6 +114,7 @@ function moveFocus(event, input) {
             }
             return;
         }
+        return;
     }
 
     if (event.key === 'ArrowUp') {
