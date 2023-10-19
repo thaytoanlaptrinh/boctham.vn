@@ -23,10 +23,7 @@ function readData(pathExel) {
             const cellAddress = { r: R, c: C };
             const cellRef = XLSX.utils.encode_cell(cellAddress);
             const cell = workbook.Sheets[sheetName][cellRef];
-            console.log('cellRef', cellRef);
-            console.log('cell', cell);
             checkSoLuongVDV++;
-            console.log('checkSoLuongVDV', checkSoLuongVDV);
             if (cell && cell.v !== undefined) {
                 row.push(cell.v);
             } else {
@@ -51,9 +48,35 @@ function changeData(inputArray) {
             stt: item[0],
             name: item[1],
             dv: item[2],
+            listScore: [],
+            myScore: 0,
+            hsbg: 0,
         };
     });
-    return outputArray;
+
+    if (outputArray.length % 2 == 1) {
+        const newPlayer = {
+            name: 'Miễn Đấu',
+            dv: '',
+            stt: outputArray.length + 1,
+            listScore: [],
+            myScore: 0,
+            hsbg: 0,
+        };
+        outputArray.push(newPlayer);
+    }
+
+    return dataChuan(outputArray);
+}
+
+function dataChuan(data) {
+    const mangDaBienDoi = data.map((item, index, arr) => {
+        const listScore = arr
+            .filter((otherItem) => otherItem.stt !== item.stt) // Loại trừ chính phần tử hiện tại
+            .map((otherItem) => ({ dt: otherItem.stt, kq: '' })); // Tạo các đối tượng listScore cho các phần tử khác
+        return { ...item, listScore };
+    });
+    return mangDaBienDoi;
 }
 
 module.exports = {

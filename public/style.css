@@ -89,6 +89,17 @@ th:nth-child(6) {
     table th {
         border: 1px solid #000 !important;
     }
+
+    table .inputResult {
+        font-size: 20px;
+        display: block;
+        width: 86px;
+        border: none;
+        outline: none;
+        padding: 5px;
+        border-radius: 0px;
+        background-color: red !important;
+    }
 }
 
 /* Sét độ dài tối đa */

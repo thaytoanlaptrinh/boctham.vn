@@ -36,6 +36,7 @@ function moveFocus(event, input) {
     if (event.key === '1') {
         // Xóa giá trị hiện có và thay thế bằng "1-0"
         input.value = '1-0';
+        handleScore(input);
         const currentRow = input.parentNode.parentNode; // Ô input hiện tại
         const nextRow = currentRow.nextElementSibling; // Ô input tiếp theo
         if (nextRow) {
@@ -50,6 +51,7 @@ function moveFocus(event, input) {
     if (event.key === '2') {
         // Xóa giá trị hiện có và thay thế bằng "1-0"
         input.value = '1/2';
+        handleScore(input, 'd');
         const currentRow = input.parentNode.parentNode; // Ô input hiện tại
         const nextRow = currentRow.nextElementSibling; // Ô input tiếp theo
         if (nextRow) {
@@ -64,6 +66,7 @@ function moveFocus(event, input) {
     if (event.key === '3') {
         // Xóa giá trị hiện có và thay thế bằng "1-0"
         input.value = '0-1';
+        handleScore(input, 'b');
         const currentRow = input.parentNode.parentNode; // Ô input hiện tại
         const nextRow = currentRow.nextElementSibling; // Ô input tiếp theo
         if (nextRow) {
@@ -78,6 +81,7 @@ function moveFocus(event, input) {
     if (event.key === '4') {
         // Xóa giá trị hiện có và thay thế bằng "1-0"
         input.value = '';
+        handleScore(input, 'c');
         return;
     }
 
@@ -182,3 +186,94 @@ function moveFocusUp(input) {
 //         }
 //     }
 // }
+
+function handleScore(input, type) {
+    let attrWhite = 'data-white';
+    let attrBlack = 'data-black';
+    let scoreWin = 1;
+    let scoreLose = 0;
+    if (type == 'b') {
+        attrWhite = 'data-black';
+        attrBlack = 'data-white';
+    }
+    if (type == 'd') {
+        scoreWin = 0.5;
+        scoreLose = 0.5;
+    }
+
+    if (type == 'c') {
+        scoreWin = '';
+        scoreLose = '';
+    }
+
+    const sttWin = input.getAttribute(attrWhite);
+    const sttLose = input.getAttribute(attrBlack);
+
+    // Handle White
+    const updatedMang = dataUpDate.map((item) => {
+        if (item.stt == sttWin) {
+            item.listScore = item.listScore.map((scoreItem) => {
+                if (scoreItem.dt == sttLose) {
+                    scoreItem.kq = scoreWin;
+                }
+                return scoreItem;
+            });
+        }
+        return item;
+    });
+    dataUpDate = updatedMang;
+
+    // Handle Black
+    const updatedMang2 = dataUpDate.map((item) => {
+        if (item.stt == sttLose) {
+            item.listScore = item.listScore.map((scoreItem) => {
+                if (scoreItem.dt == sttWin) {
+                    scoreItem.kq = scoreLose;
+                }
+                return scoreItem;
+            });
+        }
+        return item;
+    });
+    dataUpDate = updatedMang2;
+    updateScore();
+    updateHsbg();
+    console.log(dataUpDate);
+}
+
+function updateScore() {
+    const mangDaCapNhat = dataUpDate.map((item) => {
+        const totalScore = item.listScore.reduce(
+            (sum, scoreItem) => sum + (scoreItem.kq || 0),
+            0
+        );
+        return { ...item, myScore: totalScore };
+    });
+
+    dataUpDate = mangDaCapNhat;
+}
+
+function updateHsbg() {
+    dataUpDate.forEach((item) => {
+        item.hsbg = 0;
+        item.listScore.forEach((scoreItem) => {
+            if (scoreItem.kq === 1) {
+                const sttTuongUng = scoreItem.dt;
+                const sttMyScoreTuongUng = dataUpDate.find(
+                    (entry) => entry.stt === sttTuongUng
+                );
+                if (sttMyScoreTuongUng) {
+                    item.hsbg += sttMyScoreTuongUng.myScore;
+                }
+            } else if (scoreItem.kq === 0.5) {
+                const sttTuongUng = scoreItem.dt;
+                const sttMyScoreTuongUng = dataUpDate.find(
+                    (entry) => entry.stt === sttTuongUng
+                );
+                if (sttMyScoreTuongUng) {
+                    item.hsbg += sttMyScoreTuongUng.myScore / 2;
+                }
+            }
+        });
+    });
+}
