@@ -7,6 +7,12 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    background: #fbf7f7;
+    padding-top: 20px;
+    /* background: red; */
+}
+
 h1 {
     margin: 20px;
 }
@@ -50,14 +56,15 @@ th:nth-child(6) {
         margin: 20mm;
     }
 
-    h1 {
+    h1.center {
         margin-top: 0mm;
+        display: none;
     }
 
-    /* h2::before {
-        content: page;
-        page-break-before: always;
-    } */
+    body {
+        font-size: 20px;
+        padding: 0;
+    }
 
     div.content-container {
         page-break-inside: avoid;
@@ -65,9 +72,22 @@ th:nth-child(6) {
     }
 
     div.content-container::before {
+        content: 'Kết quả bốc thăm';
+        font-size: 36px;
+        font-weight: 600;
+        text-align: center;
+        display: block;
+        page-break-before: auto;
+    }
+
+    div.content-container::after {
         content: '';
         page-break-before: always;
         /* Đảm bảo div bắt đầu trên trang mới */
+    }
+    table td,
+    table th {
+        border: 1px solid #000 !important;
     }
 }
 
@@ -95,4 +115,17 @@ table td {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 48px;
+}
+
+tr:nth-child(even) {
+    background: #ebe6e6;
+}
+
+.inputResult {
+    width: 68px;
+    background: #fbf7f7;
+    border: solid 1px #ccc;
+    outline: none;
+    border-radius: 8px;
+    padding: 5px;
 }

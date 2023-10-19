@@ -3,7 +3,7 @@ const path = require('path');
 
 function readData(pathExel) {
     // Đường dẫn đến tệp Excel
-    const filePath = path.join(__dirname, 'uploads', pathExel); // Thay 'ten-tep-excel.xlsx' bằng đường dẫn tới tệp Excel của bạn
+    const filePath = path.join(__dirname, 'uploads', pathExel);
 
     // Đọc tệp Excel
     const workbook = XLSX.readFile(filePath);
@@ -14,6 +14,7 @@ function readData(pathExel) {
     // Lấy dữ liệu từ ô A4 đến hết ô C24
     const range = XLSX.utils.decode_range(workbook.Sheets[sheetName]['!ref']);
     const data = [];
+    let checkSoLuongVDV = 0;
     for (let R = 3; R <= range.e.r; R++) {
         let checknull = false;
         const row = [];
@@ -22,6 +23,10 @@ function readData(pathExel) {
             const cellAddress = { r: R, c: C };
             const cellRef = XLSX.utils.encode_cell(cellAddress);
             const cell = workbook.Sheets[sheetName][cellRef];
+            console.log('cellRef', cellRef);
+            console.log('cell', cell);
+            checkSoLuongVDV++;
+            console.log('checkSoLuongVDV', checkSoLuongVDV);
             if (cell && cell.v !== undefined) {
                 row.push(cell.v);
             } else {
@@ -30,6 +35,9 @@ function readData(pathExel) {
             }
         }
         if (checknull) {
+            break;
+        }
+        if (checkSoLuongVDV > 120) {
             break;
         }
         data.push(row);

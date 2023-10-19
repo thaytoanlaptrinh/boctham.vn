@@ -1,46 +1,17 @@
-// var students = [
-//     {
-//         round: 1,
-//         games: [
-//             {
-//                 white: { name: 'Lê Trọng Đề Toàn', stt: 1, dv: 'Quân Đội' },
-//                 black: { name: 'Lê Minh Khôi', stt: 2, dv: 'Hà Nội' },
-//             },
-//             {
-//                 white: { name: 'Phùng Thị Tuyết Lan', stt: 3, dv: 'Ba Vì' },
-//                 black: { name: 'PuKa', stt: 4, dv: 'Hà Nội' },
-//             },
-//             {
-//                 white: { name: 'Monkey', stt: 1, dv: 'Quân Đội' },
-//                 black: { name: 'Xuxu', stt: 2, dv: 'Hà Nội' },
-//             },
-//         ],
-//     },
-//     {
-//         round: 2,
-//         games: [
-//             {
-//                 white: { name: 'Lê Trọng Đề Toàn', stt: 1, dv: 'Quân Đội' },
-//                 black: { name: 'Lê Minh Khôi', stt: 2, dv: 'Hà Nội' },
-//             },
-//             {
-//                 white: { name: 'Lê Trọng Đề Toàn', stt: 1, dv: 'Quân Đội' },
-//                 black: { name: 'Lê Minh Khôi', stt: 2, dv: 'Hà Nội' },
-//             },
-//             {
-//                 white: { name: 'Lê Trọng Đề Toàn', stt: 1, dv: 'Quân Đội' },
-//                 black: { name: 'Lê Minh Khôi', stt: 2, dv: 'Hà Nội' },
-//             },
-//         ],
-//     },
-// ];
-
 function generatePairings(players) {
+    if (players.length % 2 == 1) {
+        const newPlayer = {
+            name: 'Miễn Đấu',
+            dv: '',
+            stt: '',
+        };
+        players.push(newPlayer);
+    }
     let n = players.length;
     let mod = n - 1;
     let decr = 0;
     let incr = -1;
-    let gameCount = n / 2; // n is assumed to be even
+    let gameCount = n / 2;
     let props = ['black', 'white'];
     let template = { white: players[mod], black: players[mod] };
     let pairings = [];
@@ -62,64 +33,16 @@ function generatePairings(players) {
     return pairings;
 }
 
-// const roundSwiss = generatePairings([
-//     {
-//         dv: 'QĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐQĐOQĐOQĐ',
-//         name: 'Lê Trọng Đề ToànLê Trọng Đề ToànLê Trọng Đề ToànLê Trọng Đề ToànLê Trọng Đề Toàn',
-//         stt: 1111111111111,
-//     },
-//     {
-//         name: 'Lê Minh Khôi',
-//         dv: 'HNO',
-//         stt: 2,
-//     },
-//     {
-//         name: 'Phùng Thị Tuyết Lan',
-//         dv: 'Ba Vì',
-//         stt: 3,
-//     },
-//     {
-//         name: 'PuKa',
-//         dv: 'THO',
-//         stt: 4,
-//     },
-//     {
-//         name: 'Thầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập Trình',
-//         dv: 'DNA',
-//         stt: 5,
-//     },
-//     {
-//         name: 'Xu Ka11111111111111111111111111111111111111111111111111111111111111111111111111111111111',
-//         dv: 'HCM',
-//         stt: 6,
-//     },
-//     {
-//         name: 'PuKa',
-//         dv: 'THO',
-//         stt: 4,
-//     },
-//     {
-//         name: 'Thầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập TrìnhThầy Toàn Lập Trình',
-//         dv: 'DNA',
-//         stt: 5,
-//     },
-// ]);
-
-// const roundSwiss = generatePairings(<% data%>)
-
-fetch('http://localhost:3000/data') // Địa chỉ máy chủ Node.js
+fetch('http://localhost:3000/data')
     .then(function (response) {
         if (!response.ok) {
             throw new Error('Lỗi mạng: ' + response.status);
         }
-        return response.json(); // Loại dữ liệu bạn mong muốn nhận
+        return response.json();
     })
     .then(function (data) {
-        // Dữ liệu được trả về từ máy chủ được lưu trong biến 'data'
-        console.log(data);
         const roundSwiss = generatePairings(data);
         renderVDV2(roundSwiss);
-        // Xử lý dữ liệu ở đây
     })
     .catch(function (error) {
         console.log('Lỗi: ' + error);
@@ -162,7 +85,12 @@ function renderVDV2(arrVDV) {
             whiteDvCell.textContent = game.white.dv;
 
             var resultCell = row.insertCell();
-            resultCell.textContent = '';
+
+            if (j == roundData.games.length - 1) {
+                resultCell.innerHTML = `<input type="text" name="data1" class="inputResult center last-input" oninput="updateValue(this)" onkeyup ="moveFocus(event, this)"> `;
+            } else {
+                resultCell.innerHTML = `<input type="text" name="data1" class="inputResult center" oninput="updateValue(this)" onkeyup ="moveFocus(event, this)"> `;
+            }
 
             var blackNameCell = row.insertCell();
             blackNameCell.textContent = game.black.name;
@@ -182,5 +110,3 @@ function renderVDV2(arrVDV) {
         tablesContainer.appendChild(divContainer);
     }
 }
-
-// renderVDV2(roundSwiss);

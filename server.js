@@ -11,10 +11,10 @@ app.set('view engine', 'ejs');
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, 'uploads'); // Thư mục lưu trữ tệp
+        callback(null, 'uploads');
     },
     filename: (req, file, callback) => {
-        callback(null, 'excel.xlsx'); // Tên tệp gốc
+        callback(null, 'excel.xlsx');
     },
 });
 
@@ -23,18 +23,10 @@ const upload = multer({ storage: storage });
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/data', (req, res) => {
-    // res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    // return [
-    //     { stt: 1, name: 'Thầy Toàn Cờ Vua', dv: 'Quân Đội' },
-    //     { stt: 2, name: 'Lê Trọng Đề Toàn', dv: 'Thanh Hóa' },
-    //     { stt: 3, name: 'Lê Minh Khôi', dv: 'Hà Nội' },
-    //     { stt: 4, name: 'Phùng Thị Tuyết Lan 2', dv: 'Hồ Chí Minh' },
-    // ];
     res.json(list);
 });
 
 app.get('/', (req, res) => {
-    // res.sendFile(path.join(__dirname, 'public', 'index.html'));
     res.render('index');
 });
 
