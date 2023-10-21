@@ -123,6 +123,9 @@ function ketQuaCuoiCung() {
     ketQuaCuoi.sort((a, b) => {
         if (a.myScore !== b.myScore) {
             return b.myScore - a.myScore;
+        }
+        if (a.hsdk !== b.hsdk) {
+            return b.hsdk - a.hsdk;
         } else {
             return b.hsbg - a.hsbg;
         }
@@ -149,7 +152,14 @@ function renderKetQuaCuoiCung() {
     divResult.appendChild(h1Result);
     // Tạo dòng tiêu đề
     const headerRow = document.createElement('tr');
-    const headers = ['Hạng', 'VĐV', 'Đơn vị', 'Điểm số', 'Hệ số BG'];
+    const headers = [
+        'Hạng',
+        'VĐV',
+        'Đơn vị',
+        'Điểm số',
+        'Hệ số Đối Kháng',
+        'Hệ số BG',
+    ];
 
     headers.forEach((headerText) => {
         const th = document.createElement('th');
@@ -166,6 +176,7 @@ function renderKetQuaCuoiCung() {
             item.name,
             item.dv,
             item.myScore,
+            item.hsdk,
             item.hsbg,
         ];
 

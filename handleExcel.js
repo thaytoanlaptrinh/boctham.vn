@@ -50,7 +50,10 @@ function changeData(inputArray) {
             dv: item[2],
             listScore: [],
             myScore: 0,
+            hsdk: 0,
             hsbg: 0,
+            hsw: 0,
+            hstb: 0,
             hsb: 0,
         };
     });
@@ -62,7 +65,10 @@ function changeData(inputArray) {
             stt: outputArray.length + 1,
             listScore: [],
             myScore: 0,
+            hsdk: 0,
             hsbg: 0,
+            hsw: 0,
+            hstb: 0,
             hsb: 0,
         };
         outputArray.push(newPlayer);

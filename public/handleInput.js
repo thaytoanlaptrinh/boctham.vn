@@ -1,38 +1,6 @@
-function updateValue(input) {
-    // const value = input.value;
-    // const newValue = value;
-    // if (value == '1') {
-    //     input.value = '1-0';
-    // }
-    // if (value == '2') {
-    //     input.value = '1/2';
-    // }
-    // if (value == '3') {
-    //     input.value = '0-1';
-    // }
-    // .replace('1', '1-0')
-    // .replace('2', '1/2')
-    // .replace('3', '0-1')
-    // .replace('4', '');
-    // input.value = newValue;
-    // const currentRow = input.parentNode.parentNode; // Ô input hiện tại
-    // const nextRow = currentRow.nextElementSibling; // Ô input tiếp theo
-    // if (nextRow) {
-    //     const nextInput = nextRow.querySelector('input');
-    //     if (nextInput) {
-    //         nextInput.focus(); // Focus vào ô input tiếp theo (nếu có)
-    //     }
-    // }
-}
+function updateValue(e) {}
 
 function moveFocus(event, input) {
-    // if (event.key === 'ArrowUp') {
-    //     return moveFocusUp(input);
-    // }
-    // if (event.key === 'ArrowDown') {
-    //     return moveFocusDown(input);
-    // }
-
     if (event.key === '1') {
         // Xóa giá trị hiện có và thay thế bằng "1-0"
         input.value = '1-0';
@@ -176,17 +144,6 @@ function moveFocusUp(input) {
     }
 }
 
-// function moveFocusDown(input) {
-//     const currentRow = input.parentNode.parentNode; // Ô input hiện tại
-//     const nextRow = currentRow.nextElementSibling; // Ô input phía dưới
-//     if (nextRow) {
-//         const nextInput = nextRow.querySelector('input');
-//         if (nextInput) {
-//             nextInput.focus(); // Focus vào ô input phía dưới (nếu có)
-//         }
-//     }
-// }
-
 function handleScore(input, type) {
     let attrWhite = 'data-white';
     let attrBlack = 'data-black';
@@ -237,6 +194,7 @@ function handleScore(input, type) {
     });
     dataUpDate = updatedMang2;
     updateScore();
+    updateDK();
     updateHsbg();
     console.log(dataUpDate);
 }
@@ -251,6 +209,47 @@ function updateScore() {
     });
 
     dataUpDate = mangDaCapNhat;
+}
+
+function updateDK() {
+    // Đặt giá trị `hsdk` về 0 cho mỗi phần tử
+    dataUpDate.forEach((item) => {
+        item.hsdk = 0;
+    });
+
+    // Tạo mảng con chứa các phần tử có myScore bằng nhau
+    const uniqueMyScores = [...new Set(dataUpDate.map((item) => item.myScore))];
+    // Duyệt qua mỗi giá trị myScore duy nhất
+    uniqueMyScores.forEach((myScore) => {
+        // Lọc ra các phần tử có myScore bằng giá trị hiện tại
+        const filteredItems = dataUpDate.filter(
+            (item) => item.myScore === myScore
+        );
+        // Duyệt qua các phần tử đã lọc
+        filteredItems.forEach((item) => {
+            // Duyệt qua listScore để cập nhật hsdk
+            item.listScore.forEach((scoreItem) => {
+                if (scoreItem.kq === 1) {
+                    // Tìm stt có giá trị bằng với dt tương ứng trong mảng đã lọc
+                    const foundItem = filteredItems.find(
+                        (found) => found.stt === scoreItem.dt
+                    );
+                    if (foundItem) {
+                        // foundItem.hsdk += 1;
+                        item.hsdk += 1;
+                    }
+                } else if (scoreItem.kq === 0.5) {
+                    // Tìm stt có giá trị bằng với dt tương ứng trong mảng đã lọc
+                    const foundItem = filteredItems.find(
+                        (found) => found.stt === scoreItem.dt
+                    );
+                    if (foundItem) {
+                        foundItem.hsdk += 0.5;
+                    }
+                }
+            });
+        });
+    });
 }
 
 function updateHsbg() {
@@ -277,5 +276,3 @@ function updateHsbg() {
         });
     });
 }
-
-function updateBlack() {}
