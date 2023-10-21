@@ -157,8 +157,9 @@ function renderKetQuaCuoiCung() {
         'VĐV',
         'Đơn vị',
         'Điểm số',
-        'Hệ số Đối Kháng',
+        'Hệ số đối kháng',
         'Hệ số BG',
+        'Số ván thắng',
     ];
 
     headers.forEach((headerText) => {
@@ -178,6 +179,7 @@ function renderKetQuaCuoiCung() {
             item.myScore,
             item.hsdk,
             item.hsbg,
+            item.hsw,
         ];
 
         columns.forEach((columnData) => {

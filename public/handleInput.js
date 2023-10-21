@@ -149,9 +149,13 @@ function handleScore(input, type) {
     let attrBlack = 'data-black';
     let scoreWin = 1;
     let scoreLose = 0;
+    let sideWhite = 'w';
+    let sideBlack = 'b';
     if (type == 'b') {
         attrWhite = 'data-black';
         attrBlack = 'data-white';
+        sideWhite = 'b';
+        sideBlack = 'w';
     }
     if (type == 'd') {
         scoreWin = 0.5;
@@ -172,6 +176,7 @@ function handleScore(input, type) {
             item.listScore = item.listScore.map((scoreItem) => {
                 if (scoreItem.dt == sttLose) {
                     scoreItem.kq = scoreWin;
+                    scoreItem.side = sideWhite;
                 }
                 return scoreItem;
             });
@@ -186,6 +191,7 @@ function handleScore(input, type) {
             item.listScore = item.listScore.map((scoreItem) => {
                 if (scoreItem.dt == sttWin) {
                     scoreItem.kq = scoreLose;
+                    scoreItem.side = sideBlack;
                 }
                 return scoreItem;
             });
@@ -196,6 +202,7 @@ function handleScore(input, type) {
     updateScore();
     updateDK();
     updateHsbg();
+    updateHSW();
     console.log(dataUpDate);
 }
 
@@ -272,6 +279,22 @@ function updateHsbg() {
                 if (sttMyScoreTuongUng) {
                     item.hsbg += sttMyScoreTuongUng.myScore / 2;
                 }
+            }
+        });
+    });
+}
+
+function updateHSW() {
+    dataUpDate.forEach((item) => {
+        item.hsw = 0;
+    });
+
+    // Duyệt qua từng phần tử trong mảng
+    dataUpDate.forEach((item) => {
+        // Duyệt qua mảng `listScore` của mỗi phần tử để tính tổng giá trị `kq` có giá trị bằng 1
+        item.listScore.forEach((scoreItem) => {
+            if (scoreItem.kq === 1) {
+                item.hsw += 1;
             }
         });
     });
