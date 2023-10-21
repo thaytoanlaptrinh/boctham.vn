@@ -61,12 +61,17 @@ th:nth-child(6) {
         display: none;
     }
 
+    h1.display {
+        margin-top: 20px;
+        display: block;
+    }
     body {
         font-size: 20px;
         padding: 0;
     }
 
-    div.content-container {
+    div.content-container,
+    div.result-container {
         page-break-inside: avoid;
         /* Đảm bảo nội dung của div không bị chia trang */
     }
@@ -139,4 +144,17 @@ tr:nth-child(even) {
     outline: none;
     border-radius: 8px;
     padding: 5px;
+}
+
+.btn {
+    display: inline-block;
+    min-width: 90px;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #ccc;
+    /* color: blue; */
+    margin-bottom: 20px;
+    margin-top: 20px;
 }

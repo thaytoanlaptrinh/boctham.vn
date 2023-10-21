@@ -38,7 +38,7 @@ function generatePairings(players) {
     return pairings;
 }
 
-fetch('http://localhost:3000/data')
+fetch('/data')
     .then(function (response) {
         if (!response.ok) {
             throw new Error('Lỗi mạng: ' + response.status);
@@ -109,7 +109,7 @@ function renderVDV2(arrVDV) {
             blackSttCell.textContent = game.black.stt;
         }
         const divContainer = document.createElement('div');
-        divContainer.setAttribute('class', 'content-container');
+        divContainer.setAttribute('class', 'result-container');
         const round = document.createElement('h2');
         round.innerText = `Vòng ${i + 1}`;
         divContainer.appendChild(round);
@@ -142,8 +142,11 @@ function renderKetQuaCuoiCung() {
     // Tạo bảng HTML
     const table = document.createElement('table');
     const h1Result = document.createElement('h1');
-    h1Result.setAttribute('class', 'center');
+    const divResult = document.createElement('div');
+    h1Result.setAttribute('class', 'center display');
+    divResult.setAttribute('class', '');
     h1Result.innerText = 'Bảng Xếp Hạng';
+    divResult.appendChild(h1Result);
     // Tạo dòng tiêu đề
     const headerRow = document.createElement('tr');
     const headers = ['Hạng', 'VĐV', 'Đơn vị', 'Điểm số', 'Hệ số BG'];
@@ -181,6 +184,6 @@ function renderKetQuaCuoiCung() {
     // Đặt bảng vào một phần tử HTML có id là "table-container"
     const tableContainer = document.getElementById('table-result');
     tableContainer.innerHTML = '';
-    tableContainer.appendChild(h1Result);
-    tableContainer.appendChild(table);
+    divResult.appendChild(table);
+    tableContainer.appendChild(divResult);
 }

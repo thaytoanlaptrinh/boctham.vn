@@ -51,6 +51,7 @@ function changeData(inputArray) {
             listScore: [],
             myScore: 0,
             hsbg: 0,
+            hsb: 0,
         };
     });
 
@@ -62,6 +63,7 @@ function changeData(inputArray) {
             listScore: [],
             myScore: 0,
             hsbg: 0,
+            hsb: 0,
         };
         outputArray.push(newPlayer);
     }
@@ -73,7 +75,7 @@ function dataChuan(data) {
     const mangDaBienDoi = data.map((item, index, arr) => {
         const listScore = arr
             .filter((otherItem) => otherItem.stt !== item.stt) // Loại trừ chính phần tử hiện tại
-            .map((otherItem) => ({ dt: otherItem.stt, kq: '' })); // Tạo các đối tượng listScore cho các phần tử khác
+            .map((otherItem) => ({ dt: otherItem.stt, kq: '', side: '' })); // Tạo các đối tượng listScore cho các phần tử khác
         return { ...item, listScore };
     });
     return mangDaBienDoi;
