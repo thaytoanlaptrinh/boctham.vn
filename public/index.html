@@ -7,7 +7,8 @@
     <title>Bốc Thăm Vòng Tròn - Ứng Dụng Được Viết Bởi Thầy Toàn Cờ Vua, Để Sử Dụng - Truy Cập:
         https://bocthamvongtron.vn/
     </title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/btn.style.css">
 
 </head>
 
@@ -15,17 +16,38 @@
 
 
     <div class="container">
-        <h1 class="center">Vui Lòng Tải Danh Sách Exel</h1>
+        <h1 class="center uppercase">Ứng dụng bốc thăm vòng tròn</h1>
+        <br>
+        <h2>Bước 1: Tải File Excel Mẫu Bốc Thăm</h2>
+        <br>
+        <h3><a href="/download-excel">Link Download</a></h3>
+        <br>
+
+        <h2>Bước 2: Sau khi điền tên, stt và đơn vị, bấm để chọn file:</h2>
+        <br>
+
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="excelFile" value="Chọn File"><br>
-            <button class="btn">Tải Lên</button>
+            <div class="form-group">
+                <label for="excelFile">
+                </label> <br>
+                <input type="file" name="excelFile" id="excelFile" class="fileclass" hidden
+                    onchange="preview1.src=window.URL.createObjectURL(this.files[0])">
+                <label for="excelFile">
+                    <img id="preview1" width="64px" class="avatar-preview" src="/upload1.png" alt="">
+                    <img src="/excel.png" alt="Excel Icon" width="64px" id="excel-icon" style="display: none;">
+                    <h3 id="file-name"></h3>
+                </label>
+            </div>
+            <br>
+            <!-- <input type="file" name="excelFile" value="Chọn File"><br> -->
+            <h2>Bước 3: Bấm Tải Lên Để Hoàn Tất!</h2>
+            <button class="btn button1">Tải Lên</button>
         </form>
-        <h2>Tải File Excel Mẫu Bốc Thăm</h2>
-        <a href="/download-excel">Tải Tệp Excel Mẫu</a>
+        <div id="ketquacuoicung"></div>
     </div>
 
 
+    <script src="/main.js"></script>
 </body>
-<script src="./main.js"></script>
 
 </html>

@@ -203,7 +203,8 @@ function handleScore(input, type) {
     updateDK();
     updateHsbg();
     updateHSW();
-    console.log(dataUpDate);
+    updateHSTB();
+    updateHSB();
 }
 
 function updateScore() {
@@ -295,6 +296,39 @@ function updateHSW() {
         item.listScore.forEach((scoreItem) => {
             if (scoreItem.kq === 1) {
                 item.hsw += 1;
+            }
+        });
+    });
+}
+
+function updateHSTB() {
+    // Đặt giá trị `htb` ban đầu về 0
+    dataUpDate.forEach((item) => {
+        item.hstb = 0;
+    });
+
+    // Duyệt qua từng phần tử trong mảng
+    dataUpDate.forEach((item) => {
+        // Duyệt qua mảng `listScore` của mỗi phần tử để tính tổng giá trị `side` có giá trị bằng "b"
+        item.listScore.forEach((scoreItem) => {
+            if (scoreItem.side === 'b') {
+                item.hstb += 1;
+            }
+        });
+    });
+}
+function updateHSB() {
+    // Đặt giá trị `htb` ban đầu về 0
+    dataUpDate.forEach((item) => {
+        item.hsb = 0;
+    });
+
+    // Duyệt qua từng phần tử trong mảng
+    dataUpDate.forEach((item) => {
+        // Duyệt qua mảng `listScore` của mỗi phần tử để tính tổng giá trị `side` có giá trị bằng "b"
+        item.listScore.forEach((scoreItem) => {
+            if (scoreItem.side === 'b' && scoreItem.kq === 1) {
+                item.hsb += 1;
             }
         });
     });

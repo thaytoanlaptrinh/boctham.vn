@@ -113,7 +113,7 @@
     },
 ];
 
-// cập nhật lại hsw sẽ bằng công thức sau: bằng tổng của tất cả thuộc tính kq có giá trị bằng 1
+// cập nhật lại hsb sẽ bằng công thức sau: bằng tổng của tất cả thuộc tính side có giá trị bằng b và kq bằng 1 thì tăng thêm 1
 
 const mang = [
     {

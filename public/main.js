@@ -157,9 +157,11 @@ function renderKetQuaCuoiCung() {
         'VĐV',
         'Đơn vị',
         'Điểm số',
-        'Hệ số đối kháng',
-        'Hệ số BG',
-        'Số ván thắng',
+        'VĐK',
+        'HS-BG',
+        'Win',
+        'Black',
+        'Win Black',
     ];
 
     headers.forEach((headerText) => {
@@ -180,6 +182,8 @@ function renderKetQuaCuoiCung() {
             item.hsdk,
             item.hsbg,
             item.hsw,
+            item.hstb,
+            item.hsb,
         ];
 
         columns.forEach((columnData) => {
@@ -193,6 +197,7 @@ function renderKetQuaCuoiCung() {
 
     // Đặt thuộc tính border cho bảng
     table.setAttribute('border', '1');
+    table.setAttribute('class', 'bangketqua');
 
     // Đặt bảng vào một phần tử HTML có id là "table-container"
     const tableContainer = document.getElementById('table-result');
@@ -200,3 +205,25 @@ function renderKetQuaCuoiCung() {
     divResult.appendChild(table);
     tableContainer.appendChild(divResult);
 }
+
+const fileInput = document.getElementById('excelFile');
+const excelIcon = document.getElementById('excel-icon');
+const fileNameElement = document.getElementById('file-name');
+
+fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+
+    if (file) {
+        const fileExtension = file.name.split('.').pop(); // Lấy phần mở rộng của tệp.
+
+        if (fileExtension === 'xls' || fileExtension === 'xlsx') {
+            // Đây là một tệp Excel, hiển thị hình ảnh tượng trưng Excel và tên tệp.
+            excelIcon.style.display = 'inline';
+            fileNameElement.textContent = file.name;
+        } else {
+            // Không phải tệp Excel, ẩn hình ảnh tượng trưng Excel (nếu hiển thị) và xóa tên tệp.
+            excelIcon.style.display = 'none';
+            fileNameElement.textContent = '';
+        }
+    }
+});

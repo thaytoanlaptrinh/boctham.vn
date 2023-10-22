@@ -56,6 +56,10 @@ th:nth-child(6) {
         margin: 20mm;
     }
 
+    #ketquacuoicung {
+        display: none;
+    }
+
     h1.center {
         margin-top: 0mm;
         display: none;
@@ -71,7 +75,8 @@ th:nth-child(6) {
     }
 
     div.content-container,
-    div.result-container {
+    div.result-container,
+    #table-result {
         page-break-inside: avoid;
         /* Đảm bảo nội dung của div không bị chia trang */
     }
@@ -104,6 +109,14 @@ th:nth-child(6) {
         padding: 5px;
         border-radius: 0px;
         background-color: red !important;
+    }
+
+    #header {
+        display: none;
+    }
+
+    .header h1 {
+        display: block;
     }
 }
 
@@ -157,4 +170,55 @@ tr:nth-child(even) {
     /* color: blue; */
     margin-bottom: 20px;
     margin-top: 20px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.bangketqua th:nth-child(1) {
+    width: 48px;
+}
+
+.bangketqua th:nth-child(2) {
+    max-width: 192px;
+    width: 192px;
+    text-align: left;
+}
+
+.bangketqua td:nth-child(2) {
+    max-width: 192px;
+    width: 192px;
+    text-align: left;
+}
+
+.bangketqua th:nth-child(3) {
+    max-width: 144px;
+    width: 144px;
+}
+
+.bangketqua th:nth-child(4),
+.bangketqua th:nth-child(5),
+.bangketqua th:nth-child(6),
+.bangketqua th:nth-child(7),
+.bangketqua th:nth-child(8),
+.bangketqua th:nth-child(9) {
+    width: 48px;
+    max-width: 144px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.menu {
+    font-size: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+}
+
+.bangketqua td:nth-child(6) {
+    text-align: center;
 }

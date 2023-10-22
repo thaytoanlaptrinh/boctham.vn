@@ -5,21 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bốc Thăm Vòng Tròn - Ứng Dụng Được Viết Bởi Thầy Toàn Cờ Vua, Để Sử Dụng - Truy Cập:
-        https://bocthamvongtron.vn/
+        https://boctham.vn/
     </title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/btn.style.css">
 
 </head>
 
 <body>
     <div class="container">
+        <div id="header">
+            <button class="menu button3"> <a href="/">Trang Chủ</a> </button>
+        </div>
         <div class="header">
             <h1 class="center">Kết quả bốc thăm</h1>
         </div>
         <div id="tables-container"></div>
         <div id="table-result"></div>
-        <div class="center"> <button id="ketquacuoicung" class="btn">Xem Kết Quả Cuối Cùng</button></div>
-
+        <div class="center"> <button id="ketquacuoicung" class="btn button1">Xem Kết Quả Cuối Cùng</button></div>
+        <div id="excelFile">
+            <div id="excel-ico">
+                <div id="file-name"></div>
+            </div>
+        </div>
         <script src="/main.js"></script>
         <script src="/handleInput.js"></script>
     </div>
