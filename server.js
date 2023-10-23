@@ -62,18 +62,6 @@ app.get('/download-excel', (req, res) => {
     res.sendFile(excelTemplatePath);
 });
 
-app.use(async (req, res, next) => {
-    const visit = await Visit.findOne();
-    if (!visit) {
-        const newVisit = new Visit({ count: 1 });
-        await newVisit.save();
-    } else {
-        visit.count++;
-        await visit.save();
-    }
-    next();
-});
-
 app.post('/upload', upload.single('excelFile'), async (req, res) => {
     try {
         const dataUpload = readData('excel.xlsx');
@@ -99,6 +87,18 @@ app.post('/upload', upload.single('excelFile'), async (req, res) => {
     //     .catch((error) => {
     //         console.error('Lỗi khi lưu dữ liệu: ', error);
     //     });
+});
+
+app.use(async (req, res, next) => {
+    const visit = await Visit.findOne();
+    if (!visit) {
+        const newVisit = new Visit({ count: 1 });
+        await newVisit.save();
+    } else {
+        visit.count++;
+        await visit.save();
+    }
+    next();
 });
 
 app.get('/', (req, res) => {

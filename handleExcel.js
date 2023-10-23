@@ -43,9 +43,9 @@ function readData(pathExel) {
 }
 
 function changeData(inputArray) {
-    const outputArray = inputArray.map((item) => {
+    const outputArray = inputArray.map((item, index) => {
         return {
-            stt: item[0],
+            stt: index + 1,
             name: item[1],
             dv: item[2],
             listScore: [],
