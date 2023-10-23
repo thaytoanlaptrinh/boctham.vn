@@ -2,16 +2,6 @@ let dataGlobal = [];
 let dataUpDate = [];
 let ketQuaCuoi = [];
 function generatePairings(players) {
-    // if (players.length % 2 == 1) {
-    //     const newPlayer = {
-    //         name: 'Miễn Đấu',
-    //         dv: '',
-    //         stt: players.length + 1,
-    //         listScore: [],
-    //         myScore: 0,
-    //     };
-    //     players.push(newPlayer);
-    // }
     let n = players.length;
     let mod = n - 1;
     let decr = 0;
@@ -52,7 +42,7 @@ fetch('/data')
         renderVDV2(roundSwiss);
     })
     .catch(function (error) {
-        console.log('Lỗi: ' + error);
+        // console.log('Lỗi: ' + error);
     });
 
 function renderVDV2(arrVDV) {
@@ -126,13 +116,22 @@ function ketQuaCuoiCung() {
         }
         if (a.hsdk !== b.hsdk) {
             return b.hsdk - a.hsdk;
-        } else {
+        }
+        if (a.hsbg !== b.hsbg) {
             return b.hsbg - a.hsbg;
         }
+        if (a.hsw !== b.hsw) {
+            return b.hsw - a.hsw;
+        }
+        if (a.hstb !== b.hstb) {
+            return b.hstb - a.hstb;
+        }
+        if (a.hsb !== b.hsb) {
+            return b.hsb - a.hsb;
+        } else {
+            return b.hsb - a.hsb;
+        }
     });
-
-    console.log('kết quá cuổi', ketQuaCuoi); // Mảng bản sao sau khi sắp xếp
-    console.log(132, dataUpDate); // Mảng gốc vẫn không thay đổi
 }
 
 const elButton = document.getElementById('ketquacuoicung');

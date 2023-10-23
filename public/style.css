@@ -118,6 +118,10 @@ th:nth-child(6) {
     .header h1 {
         display: block;
     }
+
+    .hidden-printer {
+        display: none;
+    }
 }
 
 /* Sét độ dài tối đa */
@@ -215,10 +219,45 @@ tr:nth-child(even) {
     font-size: 20px;
 }
 
-.menu a {
+a {
     text-decoration: none;
+}
+
+.menu:hover {
+    cursor: pointer;
 }
 
 .bangketqua td:nth-child(6) {
     text-align: center;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+p.fixed-30 {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+p.fixed-10 {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.disable {
+    cursor: none;
+    opacity: 0.6;
+}
+
+.disable:hover {
+    pointer-events: none;
 }

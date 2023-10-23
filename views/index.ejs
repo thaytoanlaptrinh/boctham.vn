@@ -41,13 +41,16 @@
             <br>
             <!-- <input type="file" name="excelFile" value="Chọn File"><br> -->
             <h2>Bước 3: Bấm Tải Lên Để Hoàn Tất!</h2>
-            <button class="btn button1">Tải Lên</button>
+            <button class="btn button1 disable" id="uploadFile">Tải Lên</button>
         </form>
         <div id="ketquacuoicung"></div>
+        <p class="center mb10 hidden-printer fixed-10">Tổng số lượng truy cập: <span class="totalCount"></span> </p>
     </div>
 
 
     <script src="/main.js"></script>
+    <script src="/count.js"></script>
+    <script src="/checkBTN.js"></script>
 </body>
 
 </html>
