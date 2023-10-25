@@ -61,7 +61,6 @@ function chonCacVDV(arr) {
 
 function sapXepTheoTongHang(arr, ...chisoxephang) {
     const chiso = [...chisoxephang];
-
     let chiso1 =
         chiso[0] === 'hang' || chiso[0] === 'score' ? chiso[0] : 'hang';
     let chiso2 =
@@ -102,6 +101,7 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
             return a[0][chiso1] + a[1][chiso1] - (b[0][chiso1] + b[1][chiso1]);
         }
     });
+    console.log('xep hang', arr);
     return arr;
 }
 

@@ -31,11 +31,28 @@
                     <img src="/excel.png" alt="Excel Icon" width="64px" id="excel-icon" style="display: none;">
                     <h3 id="file-name"></h3>
                 </label>
-                <input type="text" name="param1" value="value1" hidden>
+                <!-- <input type="text" name="chiso1" value="score" id="chiso1" hidden>
+                <input type="text" name="chiso2" value="hang" id="chiso2" hidden> -->
+
             </div>
             <br>
             <!-- <input type="file" name="excelFile" value="Chọn File"><br> -->
-            <h2>Bước 2: Bấm Tải Lên Để Hoàn Tất!</h2>
+            <h2>Bước 2: Lựa chọn hệ số, sau đó bấm tải lên để hoàn tất!</h2>
+            <br>
+            <label for="">Lựa chọn hệ số 1</label>
+            <select name="chiso1" id="chiso1">
+                <option value="score">Xếp hạng đội theo tổng điểm</option>
+                <option value="hang">Xếp hạng đội theo tổng hạng thấp nhất</option>
+            </select>
+            <br>
+            <br>
+            <label for="">Lựa chọn hệ số 2</label>
+            <select name="chiso2" id="chiso2">
+                <option value="score">Xếp hạng đội theo tổng điểm</option>
+                <option value="hang">Xếp hạng đội theo tổng hạng thấp nhất</option>
+                <option value="hatgiong">Hạng cao nhất của đội</option>
+            </select>
+            <br>
             <button class="btn button1 disable" id="uploadFile">Tải Lên</button>
         </form>
         <div id="ketquacuoicung"></div>
