@@ -74,7 +74,6 @@ app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
         const chiso1 = req.body.chiso1;
         const chiso2 = req.body.chiso2;
         // Xử lý giá trị của "param1"
-        const chisoxephang = [chiso1, chiso2];
         const dataUpload = readDataDongDoi('excel.xlsx');
         // console.log('dataUpload', dataUpload);
         const ketquaxephang = ketQuaXepHangDoi(dataUpload, chiso1, chiso2);

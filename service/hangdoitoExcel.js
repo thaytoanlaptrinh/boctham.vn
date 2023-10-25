@@ -95,7 +95,6 @@ function handleDaTa(data) {
             continue;
         }
     }
-    console.log(68, ketquacuoicung);
     return ketquacuoicung;
 }
 

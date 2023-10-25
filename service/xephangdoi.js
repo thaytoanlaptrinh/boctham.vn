@@ -101,7 +101,6 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
             return a[0][chiso1] + a[1][chiso1] - (b[0][chiso1] + b[1][chiso1]);
         }
     });
-    console.log('xep hang', arr);
     return arr;
 }
 

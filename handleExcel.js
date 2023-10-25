@@ -88,7 +88,7 @@ function readDataDongDoi(pathExel) {
             stt: item[1],
             name: item[2],
             clb: item[3],
-            score: parseFloat(item[4]),
+            score: eval(item[4].replace('½', '+0.5')),
         };
     });
     return outputArray;
