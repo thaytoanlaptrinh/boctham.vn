@@ -34,12 +34,64 @@ function readData(pathExel) {
         if (checknull) {
             break;
         }
-        if (checkSoLuongVDV > 120) {
+        if (checkSoLuongVDV > 1200) {
             break;
         }
         data.push(row);
     }
+    console.log(42, data);
     return data;
+}
+
+function readDataDongDoi(pathExel) {
+    // Đường dẫn đến tệp Excel
+    const filePath = path.join(__dirname, 'uploads', pathExel);
+
+    // Đọc tệp Excel
+    const workbook = XLSX.readFile(filePath);
+
+    // Lấy tên của sheet bạn quan tâm (ví dụ: Sheet1)
+    const sheetName = workbook.SheetNames[0];
+
+    // Lấy dữ liệu từ ô A4 đến hết ô C24
+    const range = XLSX.utils.decode_range(workbook.Sheets[sheetName]['!ref']);
+    const data = [];
+    let checkSoLuongVDV = 0;
+    for (let R = 5; R <= range.e.r; R++) {
+        let checknull = false;
+        const row = [];
+        for (let C = 0; C <= 4; C++) {
+            // Điều này sẽ trích xuất dữ liệu từ cột A đến C
+            const cellAddress = { r: R, c: C };
+            const cellRef = XLSX.utils.encode_cell(cellAddress);
+            const cell = workbook.Sheets[sheetName][cellRef];
+            checkSoLuongVDV++;
+            if (cell && cell.v !== undefined) {
+                row.push(cell.v);
+            } else {
+                checknull = true;
+                break;
+            }
+        }
+        if (checknull) {
+            break;
+        }
+        if (checkSoLuongVDV > 1200) {
+            break;
+        }
+        data.push(row);
+    }
+
+    const outputArray = data.map((item) => {
+        return {
+            hang: item[0],
+            stt: item[1],
+            name: item[2],
+            clb: item[3],
+            score: parseFloat(item[4]),
+        };
+    });
+    return outputArray;
 }
 
 function changeData(inputArray) {
@@ -90,4 +142,5 @@ function dataChuan(data) {
 module.exports = {
     changeData,
     readData,
+    readDataDongDoi,
 };

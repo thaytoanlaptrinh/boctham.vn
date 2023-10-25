@@ -4,9 +4,14 @@ const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 
-const { changeData, readData } = require('./handleExcel');
+const { changeData, readData, readDataDongDoi } = require('./handleExcel');
 const { Visit } = require('./models/count-models');
 const { Player } = require('./models/player-models');
+const { ketQuaXepHangDoi } = require('./service/xephangdoi');
+const {
+    hangdoitoExcel,
+    updateExcelTemplate,
+} = require('./service/hangdoitoExcel');
 const app = express();
 
 let list = [];
@@ -19,6 +24,7 @@ mongoose.connect(
 );
 
 const excelTemplatePath = path.join(__dirname, 'mau.xlsx');
+const duongdanketquadongdoi = path.join(__dirname, 'ketquadongdoi.xlsx');
 
 app.set('view engine', 'ejs');
 
@@ -62,6 +68,31 @@ app.get('/download-excel', (req, res) => {
     res.sendFile(excelTemplatePath);
 });
 
+app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
+    try {
+        const dataUpload = readDataDongDoi('excel.xlsx');
+        // console.log('dataUpload', dataUpload);
+        const ketquaxephang = ketQuaXepHangDoi(dataUpload);
+        // console.log('ketquaxephang', ketquaxephang);
+        // hangdoitoExcel(ketquaxephang);
+        await updateExcelTemplate(ketquaxephang);
+        const excelFileName = 'ketquadongdoi.xlsx';
+
+        // Thiết lập header để trình duyệt hiểu nó là tệp Excel
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename=${excelFileName}`
+        );
+        res.setHeader(
+            'Content-Type',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        );
+        // Phục vụ tệp Excel mẫu
+        res.sendFile(duongdanketquadongdoi);
+    } catch (error) {
+        res.render('404');
+    }
+});
 app.post('/upload', upload.single('excelFile'), async (req, res) => {
     try {
         const dataUpload = readData('excel.xlsx');
@@ -71,7 +102,6 @@ app.post('/upload', upload.single('excelFile'), async (req, res) => {
     } catch (error) {
         res.render('404');
     }
-
     // await Player.insertMany(data)
     //     .then((result) => {
     //         console.log('Dữ liệu đã được lưu vào cơ sở dữ liệu.');
@@ -101,6 +131,9 @@ app.use(async (req, res, next) => {
     next();
 });
 
+app.get('/dongdoi', (req, res) => {
+    res.render('dongdoi');
+});
 app.get('/', (req, res) => {
     res.render('index');
 });

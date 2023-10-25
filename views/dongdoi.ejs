@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bốc Thăm Vòng Tròn - Ứng Dụng Được Viết Bởi Thầy Toàn Cờ Vua, Để Sử Dụng - Truy Cập:
+        https://bocthamvongtron.vn/
+    </title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/btn.style.css">
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <h1 class="center uppercase">Ứng dụng tính hạng đồng đội</h1>
+        <h2>Bước 1: Chọn file cần xếp hạng đồng đội</h2>
+        <br>
+
+        <form action="/dongdoi" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="excelFile">
+                </label> <br>
+                <input type="file" name="excelFile" id="excelFile" class="fileclass" hidden
+                    onchange="preview1.src=window.URL.createObjectURL(this.files[0])">
+                <label for="excelFile">
+                    <img id="preview1" width="64px" class="avatar-preview" src="/upload1.png" alt="">
+                    <img src="/excel.png" alt="Excel Icon" width="64px" id="excel-icon" style="display: none;">
+                    <h3 id="file-name"></h3>
+                </label>
+                <input type="text" name="param1" value="value1" hidden>
+            </div>
+            <br>
+            <!-- <input type="file" name="excelFile" value="Chọn File"><br> -->
+            <h2>Bước 2: Bấm Tải Lên Để Hoàn Tất!</h2>
+            <button class="btn button1 disable" id="uploadFile">Tải Lên</button>
+        </form>
+        <div id="ketquacuoicung"></div>
+        <p class="center mb10 hidden-printer fixed-10">Tổng số lượng truy cập: <span class="totalCount"></span> </p>
+    </div>
+
+
+    <script src="/main.js"></script>
+    <script src="/count.js"></script>
+    <script src="/checkBTN.js"></script>
+</body>
+
+</html>
