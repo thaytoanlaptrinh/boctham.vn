@@ -17,6 +17,8 @@
 
     <div class="container">
         <h1 class="center uppercase">Ứng dụng tính hạng đồng đội</h1>
+        <h2>Quay lại trang chủ: <a href="/">Trang chủ</a></h2>
+        <br>
         <h2>Bước 1: Chọn file cần xếp hạng đồng đội</h2>
         <br>
 
@@ -42,19 +44,20 @@
             <label for="">Lựa chọn hệ số 1</label>
             <select name="chiso1" id="chiso1">
                 <option value="score">Xếp hạng đội theo tổng điểm</option>
-                <option value="hang">Xếp hạng đội theo tổng hạng thấp nhất</option>
+                <option value="hang" selected>Xếp hạng đội theo tổng hạng thấp nhất</option>
             </select>
             <br>
             <br>
             <label for="">Lựa chọn hệ số 2</label>
             <select name="chiso2" id="chiso2">
-                <option value="score">Xếp hạng đội theo tổng điểm</option>
+                <option value="score" selected>Xếp hạng đội theo tổng điểm</option>
                 <option value="hang">Xếp hạng đội theo tổng hạng thấp nhất</option>
                 <option value="hatgiong">Hạng cao nhất của đội</option>
             </select>
             <br>
             <button class="btn button1 disable" id="uploadFile">Tải Lên</button>
         </form>
+
         <div id="ketquacuoicung"></div>
         <p class="center mb10 hidden-printer fixed-10">Tổng số lượng truy cập: <span class="totalCount"></span> </p>
     </div>
