@@ -261,3 +261,11 @@ p.fixed-10 {
 .disable:hover {
     pointer-events: none;
 }
+
+.huongdan {
+    width: 100%;
+}
+
+.huongdan img {
+    object-fit: cover;
+}
