@@ -73,10 +73,15 @@ app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
         // Lấy giá trị của "param1" từ req.body
         const chiso1 = req.body.chiso1;
         const chiso2 = req.body.chiso2;
+        const soluong = req.body.soluong || 2;
         // Xử lý giá trị của "param1"
         const dataUpload = readDataDongDoi('excel.xlsx');
-        // console.log('dataUpload', dataUpload);
-        const ketquaxephang = ketQuaXepHangDoi(dataUpload, chiso1, chiso2);
+        const ketquaxephang = ketQuaXepHangDoi(
+            dataUpload,
+            chiso1,
+            chiso2,
+            soluong
+        );
         // hangdoitoExcel(ketquaxephang);
         await updateExcelTemplate(ketquaxephang);
         const excelFileName = 'ketquadongdoi.xlsx';

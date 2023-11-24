@@ -19,46 +19,87 @@ function nhomVDV(arr) {
     return result;
 }
 
-function chonCacVDV(arr) {
-    // Tạo một đối tượng để lưu 2 thành viên có tổng hạng thấp nhất theo từng câu lạc bộ
-    const result = {};
+function chonCacVDV(arr, soluong) {
+    const input = [...arr];
+    let n = soluong;
+    const lowestRankingMembersByClub = {};
 
-    arr.forEach((member) => {
-        const club = member.clb;
-        if (!result[club]) {
-            result[club] = [];
+    input.forEach((member) => {
+        const { clb, hang } = member;
+
+        if (!lowestRankingMembersByClub[clb]) {
+            lowestRankingMembersByClub[clb] = [];
         }
-        const clubMembers = result[club];
 
-        if (clubMembers.length < 2) {
-            clubMembers.push(member);
+        const clubMembers = lowestRankingMembersByClub[clb];
+
+        if (clubMembers.length < n) {
+            clubMembers.push({ hang, ...member });
         } else {
-            // Tìm và thay thế thành viên có tổng hạng thấp nhất trong mảng thành viên của câu lạc bộ
-            const minRankMembers = clubMembers.filter(
-                (m) => m.hang === clubMembers[0].hang
+            const maxRank = Math.max(
+                ...clubMembers.map((member) => member.hang)
             );
-            if (member.hang < clubMembers[0].hang) {
-                clubMembers[0] = member;
-            } else if (
-                minRankMembers.length === 2 &&
-                member.hang < minRankMembers[1].hang
-            ) {
-                clubMembers[1] = member;
+
+            if (hang < maxRank) {
+                const index = clubMembers.findIndex(
+                    (member) => member.hang === maxRank
+                );
+                clubMembers.splice(index, 1, { hang, ...member });
             }
         }
     });
 
-    // Chuyển kết quả thành mảng
-    const finalResult = Object.values(result).reduce(
+    lowestRankingMembersByClub;
+
+    const finalResult = Object.values(lowestRankingMembersByClub).reduce(
         (acc, curr) => acc.concat(curr),
         []
     );
-
     // Sắp xếp mảng finalResult theo tổng hạng thấp nhất ưu tiên
-    finalResult.sort((a, b) => a.hang - b.hang);
-    // console.log('chonCacVDV', finalResult);
+    // finalResult.sort((a, b) => a.hang - b.hang);
+    // console.log(59, finalResult);
     return finalResult;
 }
+// function chonCacVDV(arr, soluong) {
+//     // Tạo một đối tượng để lưu 2 thành viên có tổng hạng thấp nhất theo từng câu lạc bộ
+//     const result = {};
+//     let soluongtinhhang = soluong || 2;
+//     arr.forEach((member) => {
+//         const club = member.clb;
+//         if (!result[club]) {
+//             result[club] = [];
+//         }
+//         const clubMembers = result[club];
+
+//         if (clubMembers.length < soluongtinhhang) {
+//             clubMembers.push(member);
+//         } else {
+//             // Tìm và thay thế thành viên có tổng hạng thấp nhất trong mảng thành viên của câu lạc bộ
+//             const minRankMembers = clubMembers.filter(
+//                 (m) => m.hang === clubMembers[0].hang
+//             );
+//             if (member.hang < clubMembers[0].hang) {
+//                 clubMembers[0] = member;
+//             } else if (
+//                 minRankMembers.length === soluongtinhhang &&
+//                 member.hang < minRankMembers[1].hang
+//             ) {
+//                 clubMembers[1] = member;
+//             }
+//         }
+//     });
+//     console.log(50, result);
+//     // Chuyển kết quả thành mảng
+//     const finalResult = Object.values(result).reduce(
+//         (acc, curr) => acc.concat(curr),
+//         []
+//     );
+//     console.log(56, finalResult);
+//     // Sắp xếp mảng finalResult theo tổng hạng thấp nhất ưu tiên
+//     finalResult.sort((a, b) => a.hang - b.hang);
+//     console.log(59, finalResult);
+//     return finalResult;
+// }
 
 function sapXepTheoTongHang(arr, ...chisoxephang) {
     const chiso = [...chisoxephang];
@@ -106,9 +147,14 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
     return arrycanxuly;
 }
 
-function ketQuaXepHangDoi(arr, ...chisoxephang) {
+function ketQuaXepHangDoi(arr, chiso1, chiso2, soluong) {
     try {
-        return sapXepTheoTongHang(nhomVDV(chonCacVDV(arr)), ...chisoxephang);
+        return sapXepTheoTongHang(
+            nhomVDV(chonCacVDV(arr, soluong)),
+            chiso1,
+            chiso2,
+            soluong
+        );
     } catch (error) {
         return false;
     }

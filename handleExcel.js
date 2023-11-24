@@ -46,7 +46,6 @@ function readData(pathExel) {
 function readDataDongDoi(pathExel) {
     // Đường dẫn đến tệp Excel
     const filePath = path.join(__dirname, 'uploads', pathExel);
-    console.log(49);
     // Đọc tệp Excel
     const workbook = XLSX.readFile(filePath);
 
