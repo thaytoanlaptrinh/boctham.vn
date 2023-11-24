@@ -17,14 +17,13 @@ function hangdoitoExcel(data) {
     XLSX.writeFile(workbook, 'ketquadongdoi.xlsx');
 }
 
-async function updateExcelTemplate(data) {
+async function updateExcelTemplate(data, sl) {
     try {
-        console.log('updateExcelTemplate', data);
         // Mở tệp Excel mẫu
-
-        const dataOk = handleDaTa(data);
-        // console.log(26, dataOk);
-        const workbook = await XlsxPopulate.fromFileAsync('maudongdoi.xlsx');
+        const dataOk = handleDaTa(data, sl);
+        const workbook = await XlsxPopulate.fromFileAsync(
+            `maudongdoi${sl}vdv.xlsx`
+        );
 
         // Chọn sheet trong tệp Excel mẫu (tuỳ theo thiết kế của bạn)
         const sheet = workbook.sheet(0);
@@ -68,7 +67,7 @@ async function updateExcelTemplate(data) {
     }
 }
 
-function handleDaTa(data) {
+function handleDaTa(data, sl) {
     const dataToInsert = data.map((row) =>
         row.map((item) => [
             item.stt,
@@ -81,17 +80,58 @@ function handleDaTa(data) {
 
     // Loại bỏ một cặp [] bên trong mảng con
     const modifiedData = dataToInsert.flatMap((row) => row);
-    const totalarray = (modifiedData.length / 2) * 3;
+    const totalarray = (modifiedData.length / sl) * (sl + 1);
     const ketquacuoicung = [...modifiedData];
     for (let i = 0; i < totalarray; i++) {
-        if (i % 3 === 0) {
-            let thongtin = 'HẠNG ' + (i / 3 + 1) + ' ĐỘI: ';
+        if (i % (sl + 1) === 0) {
+            let thongtin = 'HẠNG ' + (i / (sl + 1) + 1) + ' ĐỘI: ';
             ketquacuoicung.splice(i, 0, [thongtin + ketquacuoicung[i][2]]);
             continue;
         }
-        if (i % 3 === 1) {
-            let tonghang = ketquacuoicung[i][3] + ketquacuoicung[i + 1][3];
-            let tongdiem = ketquacuoicung[i][4] + ketquacuoicung[i + 1][4];
+        if (i % (sl + 1) === 1) {
+            let tonghang;
+            let tongdiem;
+            if (sl == 2) {
+                tonghang = ketquacuoicung[i][3] + ketquacuoicung[i + 1][3];
+                tongdiem = ketquacuoicung[i][4] + ketquacuoicung[i + 1][4];
+            }
+            if (sl == 3) {
+                tonghang =
+                    ketquacuoicung[i][3] +
+                    ketquacuoicung[i + 1][3] +
+                    ketquacuoicung[i + 2][3];
+                tongdiem =
+                    ketquacuoicung[i][4] +
+                    ketquacuoicung[i + 1][4] +
+                    ketquacuoicung[i + 2][4];
+            }
+            if (sl == 4) {
+                tonghang =
+                    ketquacuoicung[i][3] +
+                    ketquacuoicung[i + 1][3] +
+                    ketquacuoicung[i + 2][3] +
+                    ketquacuoicung[i + 3][3];
+                tongdiem =
+                    ketquacuoicung[i][4] +
+                    ketquacuoicung[i + 1][4] +
+                    ketquacuoicung[i + 2][4] +
+                    ketquacuoicung[i + 3][4];
+            }
+            if (sl == 5) {
+                tonghang =
+                    ketquacuoicung[i][3] +
+                    ketquacuoicung[i + 1][3] +
+                    ketquacuoicung[i + 2][3] +
+                    ketquacuoicung[i + 3][3] +
+                    ketquacuoicung[i + 4][3];
+                tongdiem =
+                    ketquacuoicung[i][4] +
+                    ketquacuoicung[i + 1][4] +
+                    ketquacuoicung[i + 2][4] +
+                    ketquacuoicung[i + 3][4] +
+                    ketquacuoicung[i + 4][4];
+            }
+
             ketquacuoicung[i].push(tonghang, tongdiem);
             continue;
         }

@@ -148,16 +148,19 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
 }
 
 function ketQuaXepHangDoi(arr, chiso1, chiso2, soluong) {
+    //Viết hàm tổng quan thay cho chỉ 2 vđv
+    // try {
+    //     return sapXepTheoTongHang(
+    //         nhomVDV(chonCacVDV(arr, soluong)),
+    //         chiso1,
+    //         chiso2,
+    //         soluong
+    //     );
+    // } catch (error) {
+    //     return false;
+    // }
     try {
-        return sapXepTheoTongHang(
-            nhomVDV(chonCacVDV(arr, soluong)),
-            chiso1,
-            chiso2,
-            soluong
-        );
-    } catch (error) {
-        return false;
-    }
+    } catch {}
 }
 
 module.exports = { ketQuaXepHangDoi };

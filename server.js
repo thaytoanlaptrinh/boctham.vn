@@ -12,6 +12,8 @@ const {
     hangdoitoExcel,
     updateExcelTemplate,
 } = require('./service/hangdoitoExcel');
+const { xepHangDoiTongQuat } = require('./service/xepHangDoiTongQuat');
+
 const app = express();
 
 let list = [];
@@ -73,17 +75,18 @@ app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
         // Lấy giá trị của "param1" từ req.body
         const chiso1 = req.body.chiso1;
         const chiso2 = req.body.chiso2;
-        const soluong = req.body.soluong || 2;
+        const soluongHTML = req.body.soluong || 2;
+        let soluong = parseInt(soluongHTML);
         // Xử lý giá trị của "param1"
         const dataUpload = readDataDongDoi('excel.xlsx');
-        const ketquaxephang = ketQuaXepHangDoi(
+        const ketquaxephang = xepHangDoiTongQuat(
             dataUpload,
             chiso1,
             chiso2,
             soluong
         );
-        // hangdoitoExcel(ketquaxephang);
-        await updateExcelTemplate(ketquaxephang);
+        // Chuyển dữ liệu vào excel
+        await updateExcelTemplate(ketquaxephang, soluong);
         const excelFileName = 'ketquadongdoi.xlsx';
 
         // Thiết lập header để trình duyệt hiểu nó là tệp Excel
