@@ -19,6 +19,7 @@ function hangdoitoExcel(data) {
 
 async function updateExcelTemplate(data) {
     try {
+        console.log('updateExcelTemplate', data);
         // Mở tệp Excel mẫu
 
         const dataOk = handleDaTa(data);

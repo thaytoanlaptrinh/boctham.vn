@@ -1,5 +1,5 @@
 function nhomVDV(arr) {
-    const result = [];
+    let result = [];
     const clubMap = {};
 
     for (const member of arr) {
@@ -14,7 +14,8 @@ function nhomVDV(arr) {
     for (const club in clubMap) {
         result.push(clubMap[club]);
     }
-
+    // loai phan tu chi có 1
+    result = result.filter((subArr) => subArr.length > 1);
     return result;
 }
 
@@ -61,6 +62,7 @@ function chonCacVDV(arr) {
 
 function sapXepTheoTongHang(arr, ...chisoxephang) {
     const chiso = [...chisoxephang];
+    const arrycanxuly = [...arr];
     let chiso1 =
         chiso[0] === 'hang' || chiso[0] === 'score' ? chiso[0] : 'hang';
     let chiso2 =
@@ -68,15 +70,15 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
             ? chiso[1]
             : 'score';
 
-    arr.forEach((subArray) => {
+    arrycanxuly.forEach((subArray) => {
         subArray.sort((a, b) => a['hang'] - b['hang']);
     });
-
     // Sắp xếp mảng chính dựa trên tổng thuộc tính "hang" thấp nhất của mảng con đầu tiên
     // arr.sort((a, b) => (a[0][chiso] +  a[1][chiso])- (b[0][chiso] + b[1][chiso]));
-    arr.sort((a, b) => {
+    arrycanxuly.sort((a, b) => {
         // Bằng nhau
         if (a[0][chiso1] + a[1][chiso1] === b[0][chiso1] + b[1][chiso1]) {
+            console.log(chiso1, chiso2);
             if (chiso2 === 'hatgiong') {
                 return a[0].hang - b[0].hang;
             }
@@ -94,55 +96,15 @@ function sapXepTheoTongHang(arr, ...chisoxephang) {
                 );
             }
         }
-
-        if (chiso1 === 'score') {
+        if (chiso1 == 'score') {
             return b[0][chiso1] + b[1][chiso1] - (a[0][chiso1] + a[1][chiso1]);
         } else {
             return a[0][chiso1] + a[1][chiso1] - (b[0][chiso1] + b[1][chiso1]);
         }
     });
-    return arr;
+
+    return arrycanxuly;
 }
-
-// const mang1 = [
-//     { stt: 1, hang: 10, name: 'quan doi 1', score: 8, clb: 'THO' },
-//     { stt: 2, hang: 2, name: 'quan doi 2', score: 6, clb: 'HNO' },
-//     { stt: 3, hang: 7, name: 'quan doi 3', score: 5, clb: 'HNO' },
-//     { stt: 4, hang: 4, name: 'quan doi 4', score: 9, clb: 'QDO' },
-//     { stt: 5, hang: 5, name: 'quan doi 5', score: 6, clb: 'QDO' },
-//     { stt: 6, hang: 6, name: 'quan doi 6', score: 4, clb: 'HNO' },
-//     { stt: 7, hang: 7, name: 'quan doi 7', score: 4, clb: 'HNO' },
-//     { stt: 8, hang: 1, name: 'quan doi 8', score: 6, clb: 'HCM' },
-//     { stt: 9, hang: 9, name: 'quan doi 9', score: 5, clb: 'HCM' },
-//     { stt: 10, hang: 9, name: 'quan doi 10', score: 3, clb: 'HNO' },
-//     { stt: 11, hang: 11, name: 'quan doi 11', score: 2, clb: 'HCM' },
-//     { stt: 12, hang: 12, name: 'quan doi 12', score: 2, clb: 'QDO' },
-//     { stt: 13, hang: 13, name: 'quan doi 13', score: 2, clb: 'HCM' },
-//     { stt: 14, hang: 7, name: 'quan doi 14', score: 7, clb: 'THO' },
-//     { stt: 15, hang: 15, name: 'quan doi 15', score: 1, clb: 'HCM' },
-//     { stt: 16, hang: 16, name: 'quan doi 16', score: 1, clb: 'THO' },
-//     { stt: 16, hang: 16, name: 'quan doi 16', score: 1, clb: 'THO' },
-//     { stt: 16, hang: 16, name: 'quan doi 16', score: 1, clb: 'THO' },
-// ];
-
-// const mang2 = [
-//     [
-//         { stt: 1, hang: 1, name: 'quan doi 1', score: 7, clb: 'THO' },
-//         { stt: 14, hang: 14, name: 'quan doi 14', score: 1, clb: 'THO' },
-//     ],
-//     [
-//         { stt: 2, hang: 2, name: 'quan doi 2', score: 6, clb: 'HNO' },
-//         { stt: 3, hang: 3, name: 'quan doi 3', score: 5, clb: 'HNO' },
-//     ],
-//     [
-//         { stt: 4, hang: 4, name: 'quan doi 4', score: 5, clb: 'QDO' },
-//         { stt: 5, hang: 5, name: 'quan doi 5', score: 4, clb: 'QDO' },
-//     ],
-//     [
-//         { stt: 8, hang: 8, name: 'quan doi 8', score: 3, clb: 'HCM' },
-//         { stt: 9, hang: 9, name: 'quan doi 9', score: 3, clb: 'HCM' },
-//     ],
-// ];
 
 function ketQuaXepHangDoi(arr, ...chisoxephang) {
     try {

@@ -77,7 +77,6 @@ app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
         const dataUpload = readDataDongDoi('excel.xlsx');
         // console.log('dataUpload', dataUpload);
         const ketquaxephang = ketQuaXepHangDoi(dataUpload, chiso1, chiso2);
-        // console.log('ketquaxephang', ketquaxephang);
         // hangdoitoExcel(ketquaxephang);
         await updateExcelTemplate(ketquaxephang);
         const excelFileName = 'ketquadongdoi.xlsx';

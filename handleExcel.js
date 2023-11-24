@@ -4,7 +4,7 @@ const path = require('path');
 function readData(pathExel) {
     // Đường dẫn đến tệp Excel
     const filePath = path.join(__dirname, 'uploads', pathExel);
-
+    console.log('???');
     // Đọc tệp Excel
     const workbook = XLSX.readFile(filePath);
 
@@ -31,6 +31,7 @@ function readData(pathExel) {
                 break;
             }
         }
+        console.log(42, data);
         if (checknull) {
             break;
         }
@@ -39,14 +40,13 @@ function readData(pathExel) {
         }
         data.push(row);
     }
-    console.log(42, data);
     return data;
 }
 
 function readDataDongDoi(pathExel) {
     // Đường dẫn đến tệp Excel
     const filePath = path.join(__dirname, 'uploads', pathExel);
-
+    console.log(49);
     // Đọc tệp Excel
     const workbook = XLSX.readFile(filePath);
 
@@ -76,19 +76,20 @@ function readDataDongDoi(pathExel) {
         if (checknull) {
             break;
         }
-        if (checkSoLuongVDV > 1200) {
+        if (checkSoLuongVDV > 3000) {
             break;
         }
         data.push(row);
     }
 
     const outputArray = data.map((item) => {
+        let stringData = String(item[4]);
         return {
             hang: item[0],
             stt: item[1],
             name: item[2],
             clb: item[3],
-            score: eval(item[4].replace('½', '+0.5')),
+            score: eval(stringData.replace('½', '+0.5')),
         };
     });
     return outputArray;
