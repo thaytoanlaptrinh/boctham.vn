@@ -76,9 +76,23 @@ app.post('/dongdoi', upload.single('excelFile'), async (req, res) => {
         const chiso1 = req.body.chiso1;
         const chiso2 = req.body.chiso2;
         const soluongHTML = req.body.soluong || 2;
+        const vitriCLBHTML = req.body.vitriclb || 3;
+        const vitriDiemHTML = req.body.vitridiem || 4;
+        const vitriDongHTML = req.body.vitridong || 5;
+        const vitriTenHTML = req.body.vitriten || 2;
         let soluong = parseInt(soluongHTML);
+        let vitriCLB = parseInt(vitriCLBHTML);
+        let vitriDiem = parseInt(vitriDiemHTML);
+        let viTriDong = parseInt(vitriDongHTML);
+        let viTriTen = parseInt(vitriTenHTML);
         // Xử lý giá trị của "param1"
-        const dataUpload = readDataDongDoi('excel.xlsx');
+        const dataUpload = readDataDongDoi(
+            'excel.xlsx',
+            vitriCLB,
+            vitriDiem,
+            viTriDong,
+            viTriTen
+        );
         const ketquaxephang = xepHangDoiTongQuat(
             dataUpload,
             chiso1,

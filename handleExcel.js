@@ -43,7 +43,7 @@ function readData(pathExel) {
     return data;
 }
 
-function readDataDongDoi(pathExel) {
+function readDataDongDoi(pathExel, vitriCLB, vitriDiem, viTriDong, viTriTen) {
     // Đường dẫn đến tệp Excel
     const filePath = path.join(__dirname, 'uploads', pathExel);
     // Đọc tệp Excel
@@ -56,10 +56,11 @@ function readDataDongDoi(pathExel) {
     const range = XLSX.utils.decode_range(workbook.Sheets[sheetName]['!ref']);
     const data = [];
     let checkSoLuongVDV = 0;
-    for (let R = 5; R <= range.e.r; R++) {
-        let checknull = false;
+    for (let R = viTriDong; R <= range.e.r; R++) {
         const row = [];
-        for (let C = 0; C <= 4; C++) {
+        let checknull = false;
+        let checkRow = 1;
+        for (let C = 0; C <= vitriDiem; C++) {
             // Điều này sẽ trích xuất dữ liệu từ cột A đến C
             const cellAddress = { r: R, c: C };
             const cellRef = XLSX.utils.encode_cell(cellAddress);
@@ -68,29 +69,32 @@ function readDataDongDoi(pathExel) {
             if (cell && cell.v !== undefined) {
                 row.push(cell.v);
             } else {
-                checknull = true;
-                break;
+                if (checkRow == 3) {
+                    checknull = true;
+                    break;
+                } else {
+                    row.push(R - viTriDong + 1);
+                    checkRow++;
+                }
             }
         }
         if (checknull) {
-            break;
-        }
-        if (checkSoLuongVDV > 3000) {
             break;
         }
         data.push(row);
     }
 
     const outputArray = data.map((item) => {
-        let stringData = String(item[4]);
+        let stringData = String(item[vitriDiem]);
         return {
             hang: item[0],
             stt: item[1],
-            name: item[2],
-            clb: item[3],
+            name: item[viTriTen],
+            clb: item[vitriCLB],
             score: eval(stringData.replace('½', '+0.5')),
         };
     });
+    console.log(outputArray);
     return outputArray;
 }
 
